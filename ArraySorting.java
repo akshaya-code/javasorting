@@ -74,4 +74,37 @@ public class ArraySorting {
 		A[r] = temp;
 		return (i + 1);
 	}
+
+	public static void mergeSort(double list[]) {
+		msort(list, 0, list.length - 1);
+	}
+
+	private static void msort(double[] list, int lb, int ub) {
+		if (lb < ub) {
+			int mid = (lb + ub) / 2;
+			msort(list, lb, mid);
+			msort(list, mid + 1, ub);
+			merge(list, lb, mid, ub);
+		}
+
+	}
+
+	private static void merge(double[] list, int lb, int mid, int ub) {
+		double temp[] = new double[list.length];
+		int i = lb;
+		int j = mid + 1;
+		int k = lb;
+		while (i <= mid || j <= ub) {
+			if (i > mid)
+				temp[k++] = list[j++];
+			else if (j > ub)
+				temp[k++] = list[i++];
+			else if (list[i] < list[j])
+				temp[k++] = list[i++];
+			else
+				temp[k++] = list[j++];
+		}
+		for (j = lb; j <= ub; j++)
+			list[j] = temp[j];
+	}
 }
